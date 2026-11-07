@@ -1,102 +1,44 @@
-# Coin Dash｜Pyxel 手機 PWA 吃金幣遊戲
+# Coin Dash｜Pyxel 橫向卷軸吃金幣 PWA
 
-使用 **Pyxel（Python）** 寫成的 2D 像素吃金幣遊戲，可在 Windows 上執行，並透過 Pyxel Web 在 Android / iPhone 瀏覽器執行。專案包含 PWA manifest、Service Worker、手機圖示及 GitHub Pages 部署檔案。
+使用 Pyxel (Python) 製作的原創 2D 像素風跑跳遊戲，依照參考圖片改成藍天、粉色雲朵、雪山、漂浮磚塊、金幣與角色跑跳的橫向卷軸場景。手機瀏覽器可玩，也可以安裝到主畫面 (PWA)。
 
-## 遊戲規則
+## 遊戲操作
 
-- 在 60 秒內收集金幣，躲開會移動的炸彈。
-- 3 顆愛心（生命）；碰到炸彈扣 1 顆。
-- 連續吃金幣可累積最高 x5 分數倍率。
-- 每吃 10 枚金幣增加 5 秒。
-- 音效、金幣粒子、開始／暫停／結束畫面。
-- **手機觸控**：Pyxel 內建的十字方向鍵移動、**A** 鍵開始／暫停／重玩。
-- **電腦鍵盤**：方向鍵或 WASD 移動，空白鍵或 Enter 開始／暫停／重玩。
-- 得分最高紀錄僅保留於目前遊戲執行期間，重新載入頁面後會重置。
+- 手機：將畫面橫向，使用 Pyxel 內建虛擬方向鍵左右移動；**A = 跳躍／開始／再玩一次，B = 暫停／繼續**。
+- 電腦：**←/→ 或 A/D** 移動，**Space / ↑ / W** 跳躍，**P** 暫停，**Enter** 也可開始。
+- 100 秒內向右到達旗幟，途中收集金幣 (每枚 10 分)、跳上浮空磚塊、越過地面缺口與避開怪物。
+- 3 顆愛心；每拿 10 枚金幣額外加 5 秒。每通過一段路可記錄關卡內的重生點。
+- 最後碰到終點旗幟會結算剩餘時間加分。最高分只在本次執行期間保存。
 
-## 方式 A：Windows 安裝 Pyxel、執行 Python 遊戲
+## Windows 安裝與測試
 
-1. 到 <https://www.python.org/downloads/> 安裝 **Python 3.11 或更新版本**。Windows 安裝時勾選 `Add Python to PATH`。
-2. 解壓縮專案後，雙擊 `install_windows.bat`。
-3. 安裝完成後，雙擊 `run_game.bat`，開啟遊戲。
+1. 安裝 Python 3.11 以上 (https://www.python.org/downloads/)；勾選 Add Python to PATH。
+2. 在 Windows 解壓縮後執行 `install_windows.bat`，安裝 Pyxel。
+3. 執行 `run_game.bat` 開啟桌面遊戲。
+4. 若要試 PWA，在專案目錄執行 `start_web.bat`，瀏覽器開啟 http://localhost:8000/。
 
-也可以在 PowerShell / 終端機手動輸入：
+也能用終端機執行：
 
-```powershell
-py -m pip install --upgrade pyxel
-py game.py
+```sh
+pip install -U pyxel
+python game.py
 ```
 
-macOS / Linux 可用 `python3 -m pip install -U pyxel`，再執行 `python3 game.py`。
+## GitHub Pages / PWA 部署
 
-## 方式 B：在電腦測試 PWA 網頁
+1. 把全部檔案上傳 GitHub repository 根目錄（`game.py`、`index.html`、`manifest.webmanifest`、`sw.js`、`icons/`）。
+2. 前往 Settings → Pages → Deploy from a branch → `main` → `/(root)` → Save。
+3. 開啟 https://jackchung-taiwan.github.io/pyxel-coin-dash/ ，Android Chrome 選「安裝應用程式」；iPhone Safari 選「分享 → 加入主畫面」。
+4. 若手機仍顯示舊版，先重新整理，或關閉並重新開啟主畫面 App；Service Worker 已更新為 `coin-dash-scroll-v2`，會更新快取。
 
-在專案資料夾雙擊 `start_web.bat`，或輸入：
+**提醒**：PWA 可安裝，不等於完全離線。遊戲仍需載入 Pyxel 官方瀏覽器執行器，首次啟動需網路連線；裝置不一定能離線重啟遊戲。
 
-```powershell
-py -m http.server 8000
-```
+## 專案檔案
 
-瀏覽器開啟 <http://localhost:8000/>。
+- `game.py`: 原創 Python 卷軸平台遊戲，包含地圖繪製、角色物理、收集金幣、敵人、計時、計分、音效。
+- `index.html`: 嵌入 Pyxel Web、PWA 安裝、全螢幕控制、手機版佈局。
+- `manifest.webmanifest`, `sw.js`: PWA 設定與快取更新。
+- `icons/`: PWA 192px / 512px 圖示。
+- `install_windows.bat`, `run_game.bat`, `start_web.bat`: Windows 工具。
 
-**請勿直接雙擊 `index.html`**：Pyxel 的外部 `game.py` 需要 HTTP 伺服器載入。Pyxel Web 引擎也需要網路連線。
-
-## 方式 C：部署 GitHub Pages，給手機玩及安裝 PWA
-
-1. 前往 <https://github.com/new> 建立公開 repository，例如 `pyxel-coin-dash`。
-2. 透過 **Add file → Upload files** 上傳本專案的**所有內容**到 repository 根目錄，保留 `icons/` 資料夾和圖示。注意不要把最外層專案資料夾當成多一層路徑。
-3. 到 repository **Settings → Pages**。
-4. 在 **Build and deployment → Source** 選 `Deploy from a branch`；Branch 選 `main`、資料夾選 `/(root)`，按 **Save**。
-5. 完成部署後，網址格式如下：
-
-   `https://你的GitHub帳號.github.io/pyxel-coin-dash/`
-
-6. **Android**：Chrome 開啟上述 HTTPS 網址 → 右上角 `⋮` →「安裝應用程式」或「加到主畫面」，亦可按網站的「安裝遊戲」。
-7. **iPhone / iPad**：Safari 開啟 HTTPS 網址 →「分享」→「加入主畫面」→「加入」。
-8. 建議橫向拿手機，左邊十字鍵操作移動，右側 A 鍵開始／暫停。
-
-## PWA 與離線功能的重要說明
-
-- 包含 `manifest.webmanifest`、192/512 PWA 圖示、maskable 圖示、`display: standalone`、`orientation: landscape`、`sw.js` 同源靜態快取；部署於 HTTPS 後符合常見 PWA 安裝基礎條件。
-- **此版本不是完整離線遊戲**：Pyxel Web 的引擎／WASM 由官方 `https://kitao.dev` 載入。網站外殼可能離線開啟，但載入或重新啟動遊戲時仍可能需要網路。PWA「可安裝」不等於必然「完全離線」。
-- GitHub Pages 只提供靜態檔案，這個專案的 Python 遊戲是在瀏覽器的 Pyxel Web 環境執行，**不需要 GitHub Pages 支援伺服器端 Python**。
-- HTTPS 與正常可取得的 Pyxel 官方網頁引擎是手機成功執行的前提。首次啟動可能需載入較大的執行環境。
-
-## 可調整參數
-
-編輯 `game.py` 開頭：
-
-```python
-GAME_SECONDS = 60        # 遊戲秒數
-PLAYER_SPEED = 2.0       # 移動速度
-COINS_ON_FIELD = 7       # 同時出現金幣數
-BOMBS_ON_FIELD = 3       # 炸彈數
-```
-
-修改完成，重新上傳 `game.py` 至 GitHub，再重新整理遊戲。
-
-## 專案結構
-
-```text
-pyxel-coin-dash-pwa/
-├── game.py                  # Pyxel 遊戲主程式
-├── index.html               # Pyxel Web 和安裝按鈕
-├── manifest.webmanifest     # PWA 安裝設定
-├── sw.js                    # Service Worker 靜態快取
-├── icons/
-│   ├── icon-192.png
-│   ├── icon-512.png
-│   └── icon-maskable-512.png
-├── install_windows.bat      # Windows 安裝 Pyxel
-├── run_game.bat             # Windows 執行桌面遊戲
-├── start_web.bat            # Windows 啟動 localhost 網頁
-├── .nojekyll                # GitHub Pages 發布設定
-└── README.md
-```
-
-## 參考資料
-
-- Pyxel 官方：<https://github.com/kitao/pyxel>
-- Pyxel 網頁使用說明：<https://github.com/kitao/pyxel/blob/main/docs/web-usage.md>
-- GitHub Pages：<https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site>
-
-Pyxel 原始專案採 MIT License；本範例程式採 MIT License。
+技術參考：https://github.com/kitao/pyxel 
