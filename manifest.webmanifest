@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "Coin Dash - Pyxel 吃金幣遊戲",
+  "short_name": "吃金幣",
+  "description": "使用 Pyxel 製作的像素吃金幣遊戲，手機觸控操作，躲避炸彈爭取最高分。",
+  "lang": "zh-Hant",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#0c1430",
+  "theme_color": "#131c39",
+  "icons": [
+    {"src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
