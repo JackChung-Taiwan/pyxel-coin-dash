@@ -42,10 +42,10 @@ class CoinDash:
         pyxel.run(self.update, self.draw)
 
     def setup_sounds(self):
-        pyxel.sounds[0].set("c4 e4 g4 c5", "p", "7755", "nnnn", 10)  # coin
+        pyxel.sounds[0].set("c3 e3 g3 c4", "p", "7755", "nnnn", 10)  # coin
         pyxel.sounds[1].set("c3 g3 c4", "t", "765", "nnn", 10)      # jump
         pyxel.sounds[2].set("e3 c3 g2", "n", "765", "nnf", 16)      # hit
-        pyxel.sounds[3].set("c4 e4 g4 c5 e5 g5", "t", "777777", "nnnnnn", 10)
+        pyxel.sounds[3].set("c3 e3 g3 c4 e4 g4", "t", "777777", "nnnnnn", 10)
         pyxel.sounds[4].set("g3 e3 c3", "t", "765", "nnn", 16)
 
     def generate_level(self):
