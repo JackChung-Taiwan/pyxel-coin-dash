@@ -1,8 +1,8 @@
 /* Cache the PWA shell. Pyxel's WebAssembly runtime is provided by kitao.dev,
    so this example intentionally does not promise offline gameplay. */
-const CACHE = 'coin-dash-scroll-v3';
+const CACHE = 'coin-dash-scroll-v4';
 const SHELL = [
-  './', './index.html', './game.py', './manifest.webmanifest',
+  './', './index.html', './play-v4.html', './game.py', './game-scroll-v4.py', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'
 ];
 
@@ -23,7 +23,7 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
   const changingFile = event.request.mode === 'navigate' ||
-    url.pathname.endsWith('/game.py') || url.pathname.endsWith('/manifest.webmanifest');
+    (url.pathname.endsWith('/game.py') || url.pathname.endsWith('/game-scroll-v4.py')) || url.pathname.endsWith('/manifest.webmanifest');
   if (changingFile) {
     event.respondWith(
       fetch(event.request).then((response) => {
