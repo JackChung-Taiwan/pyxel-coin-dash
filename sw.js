@@ -1,6 +1,6 @@
 /* Cache the PWA shell. Pyxel's WebAssembly runtime is provided by kitao.dev,
    so this example intentionally does not promise offline gameplay. */
-const CACHE = 'coin-dash-scroll-v2';
+const CACHE = 'coin-dash-scroll-v3';
 const SHELL = [
   './', './index.html', './game.py', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png'
